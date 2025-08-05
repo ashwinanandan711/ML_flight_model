@@ -1,0 +1,28 @@
+# Compiler and flags
+CC ?= $(CC)
+CFLAGS = -Wall -Wextra -Iinc
+ 
+# Source and object files
+SRC = $(wildcard src/*.c) main.c
+OBJ = $(SRC:.c=.o)
+ 
+# Output binary
+TARGET = camera_controls_app
+ 
+# Default target
+all: $(TARGET)
+ 
+# Link object files into final binary
+$(TARGET): $(OBJ)
+    $(CC) $(OBJ) -o $@
+ 
+# Compile source files into object files
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+ 
+# Clean build artifacts
+clean:
+    rm -f $(OBJ) $(TARGET)
+ 
+.PHONY: all clean
+
